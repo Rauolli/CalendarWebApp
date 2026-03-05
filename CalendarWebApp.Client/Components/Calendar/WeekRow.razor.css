@@ -1,0 +1,23 @@
+﻿.week-row {
+    display: grid;
+    grid-template-columns: 3rem repeat(7, 1fr);
+    align-items: stretch;
+    gap: 0.1rem;
+}
+
+    .week-row > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+.kw {
+    /*    display: flex;
+    align-items: center;
+    align-self: stretch;
+    justify-content: center;*/
+    background: #dcdbdb;
+    font-style: italic;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+}

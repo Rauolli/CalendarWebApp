@@ -1,0 +1,42 @@
+﻿
+<div class="toolbar">
+    <button class="toolbar-button" @onclick="OnPrev">◀</button>
+    <span class="year">@Year</span>
+    <button class="toolbar-button" @onclick="OnNext">▶</button>
+    <button class="toolbar-button" @onclick="OnToday">Heute</button>
+
+    <select @bind="SelectedViewMode" @bind:event="onchange">
+        <option value="Month">Monat</option>
+        <option value="ThreeMonths">3 Monate</option>
+        <option value="Year">Jahr</option>
+    </select>
+</div>
+
+@code {
+    [Parameter]
+    public int Year { get; set; }
+    [Parameter]
+    public CalendarViewMode ViewMode { get; set; }
+
+    [Parameter]
+    public EventCallback OnPrev { get; set; }
+    [Parameter]
+    public EventCallback OnNext { get; set; }
+    [Parameter]
+    public EventCallback OnToday { get; set; }
+    [Parameter]
+    public EventCallback<CalendarViewMode> OnViewChanged { get; set; }
+
+    private CalendarViewMode SelectedViewMode
+    {
+        get => ViewMode;
+        set
+        {
+            if (ViewMode != value)
+            {
+                OnViewChanged.InvokeAsync(value);
+            }
+        }
+    }
+
+}

@@ -1,0 +1,103 @@
+﻿@inject CalendarService CalendarService
+
+<CalendarToolbar 
+    Year="@Year"
+    ViewMode="@ViewMode"
+    OnPrev="Prev" 
+    OnNext="Next"
+    OnToday="Today"
+    OnViewChanged="SetView" />
+
+<div class="month-grid view-@ViewMode.ToString().ToLower()">
+    @foreach (var month in VisibleMonths)
+    {
+        <MonthCard Month="month" />
+    }
+</div>
+
+@code {
+    private int Year = DateTime.Now.Year;
+    private CalendarViewMode ViewMode;
+
+    private List<CalendarMonth> VisibleMonths = [];
+
+    private int month = DateTime.Now.Month;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        ReloadView();
+    }
+
+    private List<CalendarMonth> GetMonthsList(int year, int month, CalendarViewMode viewMode)
+    {
+        var monthToUse = new List<int>();
+        var yearToUse = new List<int>();
+        var months = new List<CalendarMonth>();
+        switch (viewMode)
+        {
+            case CalendarViewMode.Month:
+                months.Add(CalendarService.GenerateMonth(year, month));
+                break;
+            case CalendarViewMode.ThreeMonths:
+                if (month == 1)
+                {
+                    monthToUse.AddRange(new[] { 12, 1, 2 });
+                    yearToUse.AddRange(new[] { year - 1, year, year });
+                }
+                else if (month == 12)
+                {
+                    monthToUse.AddRange(new[] { 11, 12, 1 });
+                    yearToUse.AddRange(new[] { year, year, year + 1 });
+                }
+                else
+                {
+                    monthToUse.AddRange(new[] { month - 1, month, month + 1 });
+                    yearToUse.AddRange(new[] { year, year, year });
+                }
+                for (int i = 0; i < monthToUse.Count; i++)
+                {
+                    months.Add(CalendarService.GenerateMonth(yearToUse[i], monthToUse[i]));
+                }
+                break;
+            case CalendarViewMode.Year:
+                monthToUse.AddRange(Enumerable.Range(1, 12));
+                yearToUse.AddRange(Enumerable.Repeat(year, 12));
+                for (int i = 0; i < monthToUse.Count; i++)
+                {
+                    months.Add(CalendarService.GenerateMonth(yearToUse[i], monthToUse[i]));
+                }   
+                break;
+        }
+
+        return months;
+    }
+    private void Prev()
+    {
+        Year--;
+        ReloadView();
+    }
+
+    private void Next()
+    {
+        Year++;
+        ReloadView();
+    }
+
+    private void Today()
+    {
+        Year = DateTime.Now.Year;
+        ReloadView();
+    }
+
+    private void SetView(CalendarViewMode mode)
+    {
+        ViewMode = mode;
+        ReloadView();
+    }
+
+    private void ReloadView()
+    {
+        VisibleMonths = GetMonthsList(Year, month, ViewMode);
+    }
+}

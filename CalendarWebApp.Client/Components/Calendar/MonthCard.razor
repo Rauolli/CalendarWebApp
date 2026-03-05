@@ -1,0 +1,19 @@
+﻿
+
+<div class="month-card">
+    <MonthCardHeader Month="Month" />
+    <WeekHeader />
+
+    @foreach (var week in Month.Weeks)
+    {
+        <WeekRow Week="week" />
+    }
+
+
+</div>
+
+@code {
+    [Parameter]
+    public CalendarMonth Month { get; set; } = default!;
+}
+

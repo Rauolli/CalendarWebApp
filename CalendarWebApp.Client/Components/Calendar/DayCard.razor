@@ -1,0 +1,10 @@
+﻿<div class="day-card @(Day.IsHoliday ? "tooltip": "")" data-tooltip="@Day.HolidayName">
+     <div class="@cssClass">@Day.Date.Day</div>
+</div>
+
+@code {
+    [Parameter]
+    public CalendarDay Day { get; set; } = default!;
+
+    private string cssClass => $"{(Day.IsWeekend ? "weekend" : "")} {(Day.IsToday ? "today" : "")} {(Day.IsHoliday ? "holiday" : "")}";
+}

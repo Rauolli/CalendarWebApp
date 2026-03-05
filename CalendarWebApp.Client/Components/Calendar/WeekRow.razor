@@ -1,0 +1,25 @@
+﻿<div class="week-row">
+    <div class="kw">@Week.WeekNumber</div>
+
+    @foreach(CalendarDay day in Week.Days)
+    {
+        var isToday = CheckIfDayIsToday(day);
+        <DayCard Day="day" />
+    }
+</div>
+
+@code {
+    [Parameter]
+    public CalendarWeek Week { get; set; } = default!;
+    public CalendarDay Day { get; set; } = default!;
+    private DateTime today = DateTime.Today;
+    private bool CheckIfDayIsToday(CalendarDay day)
+    {
+        Day = day;
+        if (Day.Date.Day == today.Day && Day.Date.Month == today.Month && Day.Date.Year == today.Year)
+        {
+            Day.IsToday = true;           
+        }
+        return Day.IsToday;   
+    }
+}

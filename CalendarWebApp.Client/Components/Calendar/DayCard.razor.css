@@ -1,0 +1,110 @@
+﻿.day-card {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e2e2;
+    border-radius: 0.6rem;
+    background: white;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+    .day-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .day-card > div {
+        width: 95%;
+        height: 95%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.5rem;
+        transition: all 0.2s ease;
+    }
+
+.weekend{
+    background: #ffecec;
+}
+
+.view-month .today {
+    font-size: 2.3rem;
+    aspect-ratio: 1/1;
+    background: #1c62fb;
+    color: gold;
+    border-radius: 50%;
+    width: 85%;
+    height: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+.view-threemonths .today {
+    font-size: 1.6rem;
+    aspect-ratio: 1/1;
+    background: #1c62fb;
+    color: gold;
+    border-radius: 50%;
+    width: 85%;
+    height: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+
+.view-year .today {
+    font-size: 1.3rem;
+    aspect-ratio: 1/1;
+    background: #1c62fb;
+    color: gold;
+    border-radius: 50%;
+    width: 85%;
+    height: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+
+
+
+.holiday {
+    background-color: #fed2d2;
+    color: #711717;
+    outline: 1px solid #a10606;
+}
+
+/* Der Container */
+.tooltip {
+    position: relative;
+    cursor: pointer;
+}
+
+    .tooltip::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 120%;
+        left: 50%;
+        transform: translateX(-50%) translateY(5px);
+        padding: 0.6rem 0.8rem;
+        border-radius: 0.5rem;
+        font-size: 0.85rem;
+        background: #2b2b2b;
+        color: white;
+        white-space: normal;
+        width: max-content;
+        max-width: 200px;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.25s ease;
+    }
+
+    .tooltip:hover::after {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }

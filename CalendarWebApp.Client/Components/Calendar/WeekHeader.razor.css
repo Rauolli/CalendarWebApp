@@ -1,0 +1,21 @@
+﻿.week-header {
+    display: grid;
+    grid-template-columns: 3rem repeat(7, 1fr);
+    text-align: center;
+    gap: 0.1rem;
+}
+
+    .week-header > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+    }
+
+.weekend {
+    color: #711717;
+    background-color: #ffecec;
+    font-style: italic;
+}
+
