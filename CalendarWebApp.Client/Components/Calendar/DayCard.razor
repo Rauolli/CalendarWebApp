@@ -1,10 +1,32 @@
 ﻿<div class="day-card @(Day.IsHoliday ? "tooltip": "")" data-tooltip="@Day.HolidayName">
-     <div class="@cssClass">@Day.Date.Day</div>
+     <div class="@SelectCssClass()">@Day.Date.Day</div>
 </div>
 
 @code {
     [Parameter]
     public CalendarDay Day { get; set; } = default!;
 
-    private string cssClass => $"{(Day.IsWeekend ? "weekend" : "")} {(Day.IsToday ? "today" : "")} {(Day.IsHoliday ? "holiday" : "")}";
+    private string SelectCssClass ()
+    {
+        var cssClass = string.Empty;
+        if (!Day.IsInCurrentMonth)
+        {
+            cssClass = "not-current-month";
+        }
+        else if (Day.IsToday)
+        {
+            cssClass += "today"
+        }
+        else if (Day.IsWeekend)
+        {
+            cssClass += "weekeend";
+        }
+        else if (Day.IsHoliday)
+        {
+            cssClass += "holiday";
+        }
+        
+        return cssClass;
+    
+    }
 }
