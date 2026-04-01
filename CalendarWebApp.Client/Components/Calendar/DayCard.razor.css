@@ -14,7 +14,10 @@
         box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
 
-    .day-card > div {
+    .day-card > button {
+        border: none;
+        background: transparent;
+        cursor: pointer;
         width: 95%;
         height: 95%;
         display: flex;
@@ -28,7 +31,7 @@
     background: #ffecec;
 }
 
-.not-current-month{
+.day-card > .not-current-month{
     background: #c3c3c3;
     color: #fffefe;
     font-style: italic;

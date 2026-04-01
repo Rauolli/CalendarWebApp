@@ -1,32 +1,23 @@
-﻿<div class="day-card @(Day.IsHoliday ? "tooltip": "")" data-tooltip="@Day.HolidayName">
-     <div class="@SelectCssClass()">@Day.Date.Day</div>
+﻿<div class="day-card @(Day.IsHoliday ? "tooltip": "")" data-tooltip="@(Day.IsHoliday ? Day.HolidayName : null)">
+    <button class="@GetCssClass()" @onclick="OnDayClick">
+        @Day.Date.Day
+    </button>
 </div>
 
 @code {
     [Parameter]
     public CalendarDay Day { get; set; } = default!;
 
-    private string SelectCssClass ()
+    [Parameter] public EventCallback<CalendarDay> OnClick { get; set; }
+
+    private string GetCssClass() => Day switch
     {
-        var cssClass = string.Empty;
-        if (!Day.IsInCurrentMonth)
-        {
-            cssClass = "not-current-month";
-        }
-        else if (Day.IsToday)
-        {
-            cssClass += "today";
-        }
-        else if (Day.IsWeekend)
-        {
-            cssClass += "weekeend";
-        }
-        else if (Day.IsHoliday)
-        {
-            cssClass += "holiday";
-        }
-        
-        return cssClass;
-    
-    }
+        { IsInCurrentMonth: false } => "not-current-month",
+        { IsToday: true }           => "today",
+        { IsWeekend: true }         => "weekend",
+        { IsHoliday: true }         => "holiday",
+        _                           => ""
+    };
+
+    private async Task OnDayClick() => await OnClick.InvokeAsync(Day);
 }
